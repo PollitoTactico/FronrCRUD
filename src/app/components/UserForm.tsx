@@ -24,7 +24,8 @@ const UserForm: React.FC<UserFormProps> = ({ user, onSubmit, onCancel }) => {
     numeroTelefono: user?.numeroTelefono || '',
     cumpleaños: user?.cumpleaños ? new Date(user.cumpleaños).toISOString().split('T')[0] : '',
     isActive: user?.isActive ?? true,
-    createdAt: user?.createdAt || new Date().toISOString()
+    createdAt: user?.createdAt || new Date().toISOString(),
+    password: ''  // Nuevo campo
   });
 
   const handleSubmit = (e: React.FormEvent) => {

@@ -11,6 +11,9 @@ interface User {
   cumpleaños: string;
   isActive: boolean;
   createdAt: string;
+  passwordHash: string;
+  salt: string;
+
 }
 
 const UserTable = () => {
@@ -65,22 +68,24 @@ const UserTable = () => {
 
   const handleUpdate = async (userData: any) => {
     try {
-      console.log('Updating user:', userData);
+      const updateData = {
+        id: selectedUser?.id,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        email: userData.email,
+        numeroTelefono: userData.numeroTelefono,
+        cumpleaños: userData.cumpleaños,
+        isActive: userData.isActive,
+        createdAt: selectedUser?.createdAt
+      };
+
+      console.log('Updating user:', updateData);
       const response = await fetch(`https://localhost:7481/api/Users/${selectedUser?.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          id: selectedUser?.id,
-          firstName: userData.firstName,
-          lastName: userData.lastName,
-          email: userData.email,
-          numeroTelefono: userData.numeroTelefono,
-          cumpleaños: userData.cumpleaños,
-          isActive: userData.isActive,
-          createdAt: selectedUser?.createdAt || new Date().toISOString()
-        }),
+        body: JSON.stringify(updateData)
       });
 
       const responseData = await response.text();

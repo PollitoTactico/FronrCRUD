@@ -24,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="light">
-      <body className="bg-[#3674B5] min-h-screen">
+      <body className="bg-[#578FCA] min-h-screen">
         {children}
       </body>
     </html>

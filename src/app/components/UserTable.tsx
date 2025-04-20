@@ -26,9 +26,11 @@ const UserTable = () => {
     fetchUsers();
   }, []);
 
+  // Al inicio del archivo, después de los imports
+  const API_URL = 'https://backendcrudapiservice20250420164400.azurewebsites.net';
   const fetchUsers = async () => {
     try {
-      const response = await fetch('https://localhost:7481/api/Users');
+      const response = await fetch(`${API_URL}/api/Users`);
       const data = await response.json();
       setUsers(data);
     } catch (error) {
@@ -43,7 +45,7 @@ const UserTable = () => {
         createdAt: new Date().toISOString()
       };
       console.log('Creating user:', dataWithCreatedAt);
-      const response = await fetch('https://localhost:7481/api/Users', {
+      const response = await fetch(`${API_URL}/api/Users`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -80,7 +82,7 @@ const UserTable = () => {
       };
 
       console.log('Updating user:', updateData);
-      const response = await fetch(`https://localhost:7481/api/Users/${selectedUser?.id}`, {
+      const response = await fetch(`${API_URL}/api/Users/${selectedUser?.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -107,7 +109,7 @@ const UserTable = () => {
   const handleDelete = async (id: number) => {
     if (window.confirm('¿Estás seguro de que quieres eliminar este usuario?')) {
       try {
-        const response = await fetch(`https://localhost:7481/api/Users/${id}`, {
+        const response = await fetch(`${API_URL}/api/Users/${id}`, {
           method: 'DELETE',
         });
         if (response.ok) {
@@ -122,7 +124,7 @@ const UserTable = () => {
   const handleSearch = async () => {
     if (searchId) {
       try {
-        const response = await fetch(`https://localhost:7481/api/Users/${searchId}`);
+        const response = await fetch(`${API_URL}/api/Users/${searchId}`);
         if (response.ok) {
           const data = await response.json();
           setUsers([data]);

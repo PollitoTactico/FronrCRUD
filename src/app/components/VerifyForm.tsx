@@ -21,13 +21,10 @@ export default function VerifyForm() {
         e.preventDefault();
         try {
             const instance = axios.create({
-                baseURL: 'https://localhost:7481',
+                baseURL: 'https://backendcrudapiservice20250420164400.azurewebsites.net',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
-                },
-                httpsAgent: {
-                    rejectUnauthorized: false
                 }
             });
 
@@ -72,13 +69,10 @@ export default function VerifyForm() {
     const handleResendCode = async () => {
         try {
             const instance = axios.create({
-                baseURL: 'https://localhost:7481',
+                baseURL: 'https://backendcrudapiservice20250420164400.azurewebsites.net',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
-                },
-                httpsAgent: {
-                    rejectUnauthorized: false
                 }
             });
 

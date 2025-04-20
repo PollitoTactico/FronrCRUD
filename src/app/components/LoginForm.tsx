@@ -15,13 +15,11 @@ export default function LoginForm() {
         e.preventDefault();
         try {
             const instance = axios.create({
-                baseURL: 'https://localhost:7481',
+                baseURL: 'https://backendcrudapiservice20250420164400.azurewebsites.net',
                 headers: {
                     'Content-Type': 'application/json'
-                },
-                httpsAgent: {
-                    rejectUnauthorized: false
                 }
+                // Removido httpsAgent ya que Azure proporciona SSL válido
             });
 
             const response = await instance.post('/api/Auth/login', formData);

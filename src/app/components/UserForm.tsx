@@ -1,19 +1,24 @@
 'use client';
 import React from 'react';
 
-interface UserFormProps {
-  user?: {
-    id: number;
+
+// Definir interface para userData
+interface UserData {
     firstName: string;
     lastName: string;
     email: string;
     numeroTelefono: string;
     cumpleaños: string;
     isActive: boolean;
+    password?: string;
     createdAt: string;
-  };
-  onSubmit: (userData: any) => void;
-  onCancel: () => void;
+}
+
+// Actualizar props
+interface UserFormProps {
+    user?: UserData;
+    onSubmit: (userData: UserData) => void;
+    onCancel: () => void;
 }
 
 const UserForm: React.FC<UserFormProps> = ({ user, onSubmit, onCancel }) => {
@@ -31,7 +36,6 @@ const UserForm: React.FC<UserFormProps> = ({ user, onSubmit, onCancel }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      
       if (!formData.firstName || !formData.lastName || !formData.email || !formData.numeroTelefono || !formData.cumpleaños) {
         alert('Por favor complete todos los campos');
         return;
@@ -44,7 +48,7 @@ const UserForm: React.FC<UserFormProps> = ({ user, onSubmit, onCancel }) => {
 
       console.log('Sending data:', formattedData); 
       onSubmit(formattedData);
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Form submission error:', error);
       alert('Error al procesar el formulario');
     }

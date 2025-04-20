@@ -8,6 +8,7 @@ export default function VerifyForm() {
     const [code, setCode] = useState('');
     const [email, setEmail] = useState('');
 
+    // Agregar router a las dependencias
     useEffect(() => {
         const storedEmail = sessionStorage.getItem('verification_email');
         if (!storedEmail) {
@@ -15,10 +16,11 @@ export default function VerifyForm() {
             return;
         }
         setEmail(storedEmail);
-    }, []);
+    }, [router]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        //Aqui tambien cambiamos la url
         try {
             const instance = axios.create({
                 baseURL: 'https://backendcrudapiservice20250420164400.azurewebsites.net',

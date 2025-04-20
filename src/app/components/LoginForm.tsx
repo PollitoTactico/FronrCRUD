@@ -11,6 +11,14 @@ export default function LoginForm() {
         contraseña: ''
     });
 
+    interface AxiosErrorResponse {
+        response?: {
+            data?: {
+                message?: string;
+            };
+        };
+    }
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
@@ -19,14 +27,12 @@ export default function LoginForm() {
                 headers: {
                     'Content-Type': 'application/json'
                 }
-                // Removido httpsAgent ya que Azure proporciona SSL válido
             });
 
             const response = await instance.post('/api/Auth/login', formData);
-            console.log('Login response:', response.data); // Para ver la estructura de la respuesta
+            console.log('Login response:', response.data);
 
             if (response.status === 200) {
-                // Asumiendo que el token viene en response.data.token o response.data
                 const token = response.data.token || response.data;
                 if (token) {
                     Cookies.set('auth_token', token, { expires: 7 });
@@ -37,14 +43,15 @@ export default function LoginForm() {
                     throw new Error('No se recibió el token de autenticación');
                 }
             }
-        } catch (error: any) {
+        } catch (error: unknown) {
             if (axios.isAxiosError(error)) {
-                const errorMessage = error.response?.data?.message || error.response?.data || 'Error en el inicio de sesión';
+                const axiosError = error as AxiosErrorResponse;
+                const errorMessage = axiosError.response?.data?.message || 'Error en el inicio de sesión';
                 console.error('Error detallado:', error.response?.data);
                 alert(`Error: ${errorMessage}`);
             } else {
                 console.error('Error completo:', error);
-                alert(error.message || 'Error de conexión con el servidor');
+                alert('Error de conexión con el servidor');
             }
         }
     };

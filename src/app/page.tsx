@@ -1,5 +1,6 @@
 import RegisterForm from './components/RegisterForm';
-import Link from 'next/link';
+// Remover la importación no utilizada
+// import Link from 'next/link'
 
 export default function Home() {
   return (

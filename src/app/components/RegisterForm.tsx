@@ -1,7 +1,8 @@
 'use client'
 import {useState} from 'react'
 import {useRouter} from 'next/navigation'
-import { Cutive_Mono } from 'next/font/google';
+// Remover la importación no utilizada
+// import { Cutive_Mono } from 'next/font/google';
 import axios from 'axios';
 
 export default function RegisterForm() {
@@ -20,12 +21,13 @@ export default function RegisterForm() {
         try {
             console.log('Datos a enviar:', formData);
 
+            //Aqui igual xd
             const instance = axios.create({
                 baseURL: 'https://backendcrudapiservice20250420164400.azurewebsites.net',
                 headers: {
                     'Content-Type': 'application/json'
                 }
-                // Removido httpsAgent ya que Azure proporciona SSL válido
+                
             });
 
             const response = await instance.post('/api/Auth/register', formData);
